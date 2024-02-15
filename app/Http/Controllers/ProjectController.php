@@ -16,21 +16,27 @@ class ProjectController extends Controller
         return view('project.index', compact('projects'));
     }
 
+    public function create()
+    {
+        return view('project.create');
+    }
+
     protected function validateProject(Request $request)
     {
         return $request->validate([
             'name' => 'required|max:255|string',
             'description' => 'required|max:255|string',
-            'picture' => 'nullable|file',
+            'picture' => 'required|file',
         ], [
             'name.required' => 'Project name is required',
             'name.max' => 'Project name should not be greater than 255 characters',
             'description.required' => 'Project description is required',
             'description.max' => 'Project description should not be greater than 255 characters',
+            'picture.required' => 'Project picture is required',
         ]);
     }
 
-    protected function handleFile(Request $request)
+    protected function handlePictureLogic(Request $request)
     {
         $file = $request->file('picture');
         $fileExtension = $file->getClientOriginalExtension();
@@ -49,16 +55,12 @@ class ProjectController extends Controller
         return $pictureSrc;
     }
 
-    public function create()
-    {
-        return view('project.create');
-    }
 
     public function store(Request $request)
     {
         $this->validateProject($request);
 
-        $pictureSrc = $this->handleFile($request);
+        $pictureSrc = $this->handlePictureLogic($request);
 
         $project = $request->post();
         $project['picture'] = $pictureSrc;
@@ -81,7 +83,7 @@ class ProjectController extends Controller
         $validatedData = $this->validateProject($request);
 
         if ($request->hasFile('picture')) {
-            $project->picture = $this->handleFile($request);
+            $project->picture = $this->handlePictureLogic($request);
         }
 
         $project->name = $validatedData['name'];
@@ -90,7 +92,7 @@ class ProjectController extends Controller
         try {
             $project->save();
             return redirect()->route('projects.index')->with('status', 'The project has been successfully updated!');
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return back()->with('status', 'Failed to update the project. Please try again.');
         }
     }

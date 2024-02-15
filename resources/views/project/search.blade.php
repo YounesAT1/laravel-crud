@@ -31,6 +31,6 @@
       @endif
     </div>
     <a class="text-white bg-indigo-500 px-4 py-2 rounded-md mt-auto self-end" href="{{ route('projects.index') }}">Back
-      to dashboard</a>
+      to projects list</a>
   </div>
 @endsection

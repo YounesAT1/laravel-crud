@@ -26,7 +26,7 @@
       </div>
 
       <a class="text-white bg-indigo-500 px-4 py-2 rounded-md self-end mt-auto" href="{{ route('projects.index') }}">Back
-        to dashboard</a>
+        to projects list</a>
     </div>
   </div>
 @endsection
