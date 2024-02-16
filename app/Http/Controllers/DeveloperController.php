@@ -37,7 +37,7 @@ class DeveloperController extends Controller
         return $pictureSrc;
     }
 
-    protected function validateDeveloper(Request $request) {
+    protected function validateAddDeveloper(Request $request) {
         return $request->validate([
             'firstName'=> 'required|max:255|string',
             'lastName'=> 'required|max:255|string',
@@ -50,6 +50,20 @@ class DeveloperController extends Controller
             'lastName.max' => 'Last name should not be greater than 255 characters',
             'picture.required' => 'The picture is required',
             'cv.required' => 'The CV is required',
+        ]);
+    }
+
+    protected function validateUpdateDeveloper(Request $request) {
+        return $request->validate([
+            'firstName'=> 'required|max:255|string',
+            'lastName'=> 'required|max:255|string',
+            'picture'=> 'nullable|file|mimes:jpg,jpeg,png|max:5120',
+            'cv'=> 'nullable|file|mimes:pdf,doc,docx|max:5120',
+        ], [
+            'firstName.required' => 'First Name is required',
+            'firstName.max' => 'First name should not be greater than 255 characters',
+            'lastName.required' => 'Last Name is required',
+            'lastName.max' => 'Last name should not be greater than 255 characters',
         ]);
     }
 
@@ -72,7 +86,7 @@ class DeveloperController extends Controller
     }
 
     public function store(Request $request) {
-        $this->validateDeveloper($request);
+        $this->validateAddDeveloper($request);
 
         $pictureSrc = $this->handlePictureUpload($request);
         $cvSrc = $this->handleCvUpload($request);
@@ -94,11 +108,15 @@ class DeveloperController extends Controller
     }
 
     public function update (Request $request, Developer $developer) {
-        $validatedData = $this->validateDeveloper($request);
+        $validatedData = $this->validateUpdateDeveloper($request);
 
-        if ($request -> hasFile('picture') and $request ->hasFile('cv')){
-            $developer->cv = $this->handleCvUpload($request);
+        if ($request -> hasFile('picture') ){
             $developer->picture = $this->handlePictureUpload($request);
+        }
+        
+        if ( $request ->hasFile('cv')){
+            $developer->cv = $this->handleCvUpload($request);
+
         }
 
         $developer->firstName = $validatedData['firstName'];

@@ -25,7 +25,7 @@
     <a href="{{ route('tasks.create') }}" class="text-white bg-black py-3 px-5 font-semibold rounded-lg"> Add </a>
   </div>
   <form action="{{ route('tasks.search') }}" method="GET" autocomplete="off" class="mb-2">
-    <input type="text" name="search" placeholder="Search by task name"
+    <input type="text" name="search" placeholder="Search by developer name"
       class="border p-2 px-3 rounded-md w-64 bg-gray-200 placeholder:text-gray-600 placeholder:font-semibold  focus:outline-none"
       @if ($tasks->count() === 0) disabled @endif>
     <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-md">Search</button>
@@ -53,7 +53,7 @@
             <td class="py-2 px-4 border-b">{{ $task->project->name }}</td>
             <td class="py-2 px-4 border-b">{{ $task->developer->firstName }}</td>
             <td class="py-2 px-4 border-b">{{ $task->durationHours }}</td>
-            <td class="py-2 px-4 border-b">{{ $task->priceHour }}</td>
+            <td class="py-2 px-4 border-b">{{ $task->priceHour }} $</td>
             <td class="py-2 px-4 border-b">{{ $task->state }}</td>
 
 

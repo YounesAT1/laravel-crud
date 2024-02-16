@@ -56,9 +56,9 @@
           <select id="state" name="state"
             class="mt-1 p-2 w-full border rounded-md bg-gray-100 @error('state') border-red-500 @enderror">
             <option value="" disabled selected>Choose a state</option>
-            <option value="ongoing">Ongoing</option>
-            <option value="done">Done</option>
-            <option value="not_started">Not Started Yet</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Done">Done</option>
+            <option value="Dot_started">Not Started Yet</option>
           </select>
           @error('state')
             <p class="text-red-500">{{ $message }}</p>

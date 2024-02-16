@@ -21,7 +21,7 @@ class ProjectController extends Controller
         return view('project.create');
     }
 
-    protected function validateProject(Request $request)
+    protected function validateAddProject(Request $request)
     {
         return $request->validate([
             'name' => 'required|max:255|string',
@@ -33,6 +33,20 @@ class ProjectController extends Controller
             'description.required' => 'Project description is required',
             'description.max' => 'Project description should not be greater than 255 characters',
             'picture.required' => 'Project picture is required',
+        ]);
+    }
+
+    protected function validateUpdateProject(Request $request)
+    {
+        return $request->validate([
+            'name' => 'required|max:255|string',
+            'description' => 'required|max:255|string',
+            'picture' => 'nullable|file',
+        ], [
+            'name.required' => 'Project name is required',
+            'name.max' => 'Project name should not be greater than 255 characters',
+            'description.required' => 'Project description is required',
+            'description.max' => 'Project description should not be greater than 255 characters',
         ]);
     }
 
@@ -58,7 +72,7 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
-        $this->validateProject($request);
+        $this->validateAddProject($request);
 
         $pictureSrc = $this->handlePictureLogic($request);
 
@@ -80,7 +94,7 @@ class ProjectController extends Controller
 
     public function update(Request $request, Project $project)
     {
-        $validatedData = $this->validateProject($request);
+        $validatedData = $this->validateUpdateProject($request);
 
         if ($request->hasFile('picture')) {
             $project->picture = $this->handlePictureLogic($request);
