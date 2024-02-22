@@ -58,7 +58,7 @@
             <option value="" disabled selected>Choose a state</option>
             <option value="Ongoing">Ongoing</option>
             <option value="Done">Done</option>
-            <option value="Dot_started">Not Started Yet</option>
+            <option value="Not_started">Not Started Yet</option>
           </select>
           @error('state')
             <p class="text-red-500">{{ $message }}</p>

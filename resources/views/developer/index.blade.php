@@ -24,12 +24,20 @@
     @endif
     <a href="{{ route('developers.create') }}" class="text-white bg-black py-3 px-5 font-semibold rounded-lg"> Add </a>
   </div>
+
   <form action="{{ route('developers.search') }}" method="GET" autocomplete="off" class="mb-2">
-    <input type="text" name="search" placeholder="Search by developer name"
-      class="border p-2 px-3 rounded-md w-64 bg-gray-200 placeholder:text-gray-600 placeholder:font-semibold  focus:outline-none "
-      @if ($developers->count() === 0) disabled @endif>
+    <select name="search" class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none">
+      <option value="" disabled selected>Select a developer</option>
+      @foreach ($developers as $developer)
+        <option value="{{ $developer->firstName }}" class="bg-gray-50 text-black font-semibold">
+          {{ $developer->firstName }} {{ $developer->lastName }}</option>
+      @endforeach
+    </select>
     <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-md">Search</button>
   </form>
+
+
+
   @error('search')
     <p class="text-red-500">{{ $message }}</p>
   @enderror

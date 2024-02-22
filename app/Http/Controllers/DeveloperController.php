@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Developer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class DeveloperController extends Controller
 {
@@ -146,15 +149,21 @@ class DeveloperController extends Controller
         ],[
             'search.required' => 'Please enter a developer name'
         ]);
-
+    
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
+    
         $firstName = $request->input('search');
-        $searchResults = Developer::where('firstName', 'like', '%' . $firstName . '%')->get();
-
-        return view('developer.search', compact('searchResults'));
+        $projects = DB::select('
+        SELECT projects.idP, projects.name, projects.description, projects.picture AS project_picture, projects.created_at, projects.updated_at
+        FROM projects
+        INNER JOIN tasks ON projects.idP = tasks.idP
+        INNER JOIN developers ON tasks.idD = developers.idD
+        WHERE developers.firstName = :firstName', [$firstName]);    
+        
+        return view('developer.search', compact('projects', 'firstName'));
     }
+    
     
 }

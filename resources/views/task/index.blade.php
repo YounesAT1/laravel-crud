@@ -54,7 +54,18 @@
             <td class="py-2 px-4 border-b">{{ $task->developer->firstName }}</td>
             <td class="py-2 px-4 border-b">{{ $task->durationHours }}</td>
             <td class="py-2 px-4 border-b">{{ $task->priceHour }} $</td>
-            <td class="py-2 px-4 border-b">{{ $task->state }}</td>
+            <td class="py-2 px-4 border-b text-gray-50">
+              <span
+                class="px-4 py-2 rounded-md 
+                @if ($task->state == 'Done') bg-green-500 
+                @elseif($task->state == 'Not_started') bg-red-500 
+                @elseif($task->state == 'Ongoing') bg-yellow-500 
+                @else bg-white @endif;">
+                {{ $task->state }}
+              </span>
+
+            </td>
+
 
 
             <td class="py-2 px-2  flex items-center justify-center gap-x-1">
