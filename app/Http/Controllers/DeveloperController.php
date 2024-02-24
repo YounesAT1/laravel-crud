@@ -140,29 +140,53 @@ class DeveloperController extends Controller
     }
 
     public function details (Developer $developer) {
-        return view('developer.details', compact('developer'));
+        $dev = Developer::with(['tasks'])->find($developer->idD);
+        
+
+        return view('developer.details', compact('dev'));
     }
 
-    public function search(Request $request){
+    public function searchTasks(Request $request){
         $validator = Validator::make($request->all(), [
-            'search' => 'required|string',
+            'searchTasks' => 'required|string',
         ],[
-            'search.required' => 'Please enter a developer name'
+            'searchTasks.required' => 'Choose a developer'
         ]);
     
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
     
-        $firstName = $request->input('search');
-        $projects = DB::select('
-        SELECT projects.idP, projects.name, projects.description, projects.picture AS project_picture, projects.created_at, projects.updated_at
-        FROM projects
-        INNER JOIN tasks ON projects.idP = tasks.idP
+        $firstName = $request->input('searchTasks');
+        $tasks = DB::select('
+        SELECT tasks.idT, tasks.durationHours, tasks.priceHour, tasks.state, tasks.created_at, tasks.updated_at
+        FROM tasks
         INNER JOIN developers ON tasks.idD = developers.idD
         WHERE developers.firstName = :firstName', [$firstName]);    
         
-        return view('developer.search', compact('projects', 'firstName'));
+        return view('developer.searchTasks', compact('tasks', 'firstName'));
+    }
+
+    public function searchProjects(Request $request){
+        $validator = Validator::make($request->all(), [
+            'searchProjects' => 'required|string',
+        ], [
+            'searchProjects.required' => 'Choose a developer'
+        ]);
+    
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+    
+        $firstName = $request->input('searchProjects'); 
+        $projects = DB::select('
+            SELECT projects.idP, projects.name, projects.description, projects.picture AS project_picture, projects.created_at, projects.updated_at
+            FROM projects
+            INNER JOIN tasks ON projects.idP = tasks.idP
+            INNER JOIN developers ON tasks.idD = developers.idD
+            WHERE developers.firstName = :firstName', [$firstName]);
+    
+        return view('developer.searchProjects', compact('projects', 'firstName'));
     }
     
     

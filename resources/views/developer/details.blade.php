@@ -4,37 +4,85 @@
 
 @section('content')
   <div class="container mx-auto p-4">
-    <div class="bg-white rounded-lg overflow-hidden border border-gray-200 p-6 mb-6 flex flex-col">
-      <h2 class="text-3xl font-bold text-indigo-700 mb-4">{{ $developer->firstName }} Information</h2>
+    <div class="bg-white rounded-lg overflow-hidden border border-gray-200 p-6 mb-6">
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="mb-4 md:mb-0">
-          <img src="/{{ $developer->picture }}" alt="{{ $developer->firstName }}" class="w-[100px] h-[100px]">
-        </div>
-        <div class="md:col-span-2 mt-8">
-          <p class="text-lg"><span class="font-semibold text-indigo-500 underline">ID : </span> {{ $developer->idD }}
-          <p class="text-lg"><span class="font-semibold text-indigo-500 underline">First Name : </span>
-            {{ $developer->firstName }}
-          </p>
-          <p class="text-lg"><span class="font-semibold text-indigo-500 underline">Last Name : </span>
-            {{ $developer->lastName }}
-          </p>
-          <p class="text-lg"><span class="font-semibold text-indigo-500 underline">Resume : </span>
-            <a href="/{{ $developer->cv }}" target="_blank" class="text-black font-semibold">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-3xl font-bold text-indigo-700 mb-4">{{ $dev->firstName }} Information</h2>
+        <img src="/{{ $dev->picture }}" alt="Developer Picture" class="h-10 w-10 object-cover rounded-full">
+      </div>
+
+      <table class="w-full border-collapse border border-gray-300 mb-4">
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">ID</th>
+          <td class="p-3 border border-gray-300">{{ $dev->idD }}</td>
+        </tr>
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">First Name</th>
+          <td class="p-3 border border-gray-300">{{ $dev->firstName }}</td>
+        </tr>
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">Last Name</th>
+          <td class="p-3 border border-gray-300">{{ $dev->lastName }}</td>
+        </tr>
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">Resume</th>
+          <td class="p-3 border border-gray-300">
+            <a href="/{{ $dev->cv }}" target="_blank" class="text-indigo-500 font-semibold">
               Show
             </a>
-          </p>
+          </td>
+        </tr>
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">Addition Date</th>
+          <td class="p-3 border border-gray-300">{{ $dev->created_at->format('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">Last Update</th>
+          <td class="p-3 border border-gray-300">{{ $dev->updated_at->format('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">Tasks</th>
+          <td class="p-3 border border-gray-300">
+            <table class="w-full border-collapse border border-gray-300">
+              <tr>
+                <th class="p-3 border border-gray-300 text-left"> ID</th>
+                <th class="p-3 border border-gray-300 text-left">Duration</th>
+                <th class="p-3 border border-gray-300 text-left">Price</th>
+                <th class="p-3 border border-gray-300 text-left">Status</th>
+              </tr>
+              @if ($dev->tasks->count() > 0)
+                @foreach ($dev->tasks as $task)
+                  <tr>
+                    <td class="p-3 border border-gray-300">{{ $task->idT }}</td>
+                    <td class="p-3 border border-gray-300">{{ $task->durationHours }} hours</td>
+                    <td class="p-3 border border-gray-300">{{ $task->priceHour }} </td>
+                    <td class="p-3 border border-gray-300">
+                      <span
+                        class="px-4 py-2 rounded-md  text-white 
+                        @if ($task->state == 'Done') bg-green-500 
+                        @elseif($task->state == 'Not_started') bg-red-500 
+                        @elseif($task->state == 'Ongoing') bg-yellow-500 
+                        @else bg-white @endif;">
+                        {{ $task->state }}
+                      </span>
+                    </td>
+                  </tr>
+                @endforeach
+              @else
+                <tr>
+                  <td class="p-3 border border-gray-300 font-semibold text-slate-950 text-center" colspan="4">No Tasks
+                    Available !!</td>
+                </tr>
+              @endif
+            </table>
+          </td>
+        </tr>
 
-          <p class="text-lg"><span class="font-semibold text-indigo-500 underline">Addition date : </span>
-            {{ $developer->created_at->format('Y-m-d H:i:s') }}</p>
-          <p class="text-lg"><span class="font-semibold text-indigo-500 underline">Last update : </span>
-            {{ $developer->updated_at->format('Y-m-d H:i:s') }}</p>
-        </div>
-      </div>
+      </table>
 
       <a class="text-white bg-indigo-500 px-4 py-2 rounded-md self-end mt-auto"
         href="{{ route('developers.index') }}">Back
-        to developers list</a>
+        to Developers List</a>
     </div>
   </div>
 @endsection

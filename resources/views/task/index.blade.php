@@ -24,15 +24,7 @@
     @endif
     <a href="{{ route('tasks.create') }}" class="text-white bg-black py-3 px-5 font-semibold rounded-lg"> Add </a>
   </div>
-  <form action="{{ route('tasks.search') }}" method="GET" autocomplete="off" class="mb-2">
-    <input type="text" name="search" placeholder="Search by developer name"
-      class="border p-2 px-3 rounded-md w-64 bg-gray-200 placeholder:text-gray-600 placeholder:font-semibold  focus:outline-none"
-      @if ($tasks->count() === 0) disabled @endif>
-    <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-md">Search</button>
-  </form>
-  @error('search')
-    <p class="text-red-500">{{ $message }}</p>
-  @enderror
+
   <table class="min-w-full bg-white border border-gray-300 text-left">
     <thead>
       <tr class="border-b">

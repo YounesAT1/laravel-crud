@@ -3,42 +3,64 @@
 @section('title', 'Task Details')
 
 @section('content')
-  <div class="flex items-center justify-center flex-col">
-    <div class="max-w-md mx-auto bg-white p-6 rounded-md border-black/20 border border-gray-300 w-3/6">
-      <h2 class="text-3xl font-semibold mb-6 text-blue-600">Task Details</h2>
+  <div class="max-w-3xl mx-auto mt-8 bg-white rounded-md shadow-md p-6">
+    <h1 class="text-3xl font-semibold text-violet-600 mb-4">Task Details - ID {{ $task->idT }}</h1>
 
-      <div class="mb-4">
-        <strong class="text-gray-600">Task ID:</strong> {{ $task->idT }}
-      </div>
+    <!-- Task Details Table -->
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Task :</h2>
+      <table class="w-full border-collapse border border-gray-300 mb-4">
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">Duration</th>
+          <td class="p-3 border border-gray-300">{{ $task->durationHours }} hours</td>
+          <th class="p-3 border border-gray-300 text-left">Price per Hour</th>
+          <td class="p-3 border border-gray-300">{{ $task->priceHour }} $</td>
+          <th class="p-3 border border-gray-300 text-left">Status</th>
+          <td class="p-3 border border-gray-300">
+            <span
+              class="px-4 py-2 rounded-md  text-white
+                @if ($task->state == 'Done') bg-green-500 
+                @elseif($task->state == 'Not_started') bg-red-500 
+                @elseif($task->state == 'Ongoing') bg-yellow-500 
+                @else bg-white @endif;">
+              {{ $task->state }}
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Assigned to :</h2>
+      <table class="w-full border-collapse border border-gray-300 mb-4">
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">Name</th>
+          <td class="p-3 border border-gray-300">
+            {{ $task->developer->firstName }} {{ $task->developer->lastName }}
+          </td>
+          <th class="p-3 border border-gray-300 text-left">Developer ID</th>
+          <td class="p-3 border border-gray-300">{{ $task->developer->idD }}</td>
+        </tr>
+      </table>
+    </div>
 
-      <div class="mb-4">
-        <strong class="text-gray-600">Project:</strong> {{ $task->project->name }}
-      </div>
 
-      <div class="mb-4">
-        <strong class="text-gray-600">Developer:</strong> {{ $task->developer->firstName }}
-        {{ $task->developer->lastName }}
-      </div>
+    <div>
+      <h2 class="text-xl font-semibold mb-4">For :</h2>
+      <table class="w-full border-collapse border border-gray-300 mb-4">
+        <tr>
+          <th class="p-3 border border-gray-300 text-left">Project Name</th>
+          <td class="p-3 border border-gray-300">{{ $task->project->name }}</td>
+          <th class="p-3 border border-gray-300 text-left">Project ID</th>
+          <td class="p-3 border border-gray-300">{{ $task->project->idP }}</td>
+        </tr>
+      </table>
+    </div>
 
-      <div class="mb-4">
-        <strong class="text-gray-600">Duration:</strong> {{ $task->durationHours }} hours
-      </div>
-
-      <div class="mb-4">
-        <strong class="text-gray-600">Price per Hour:</strong> {{ $task->priceHour }} $
-      </div>
-
-      <div class="mb-4">
-        <strong class="text-gray-600">State:</strong> {{ $task->state }}
-      </div>
-
-      <div class="flex space-x-4">
-
-        <a href="{{ route('tasks.index') }}"
-          class="bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600 focus:outline-none focus:border-violet-700 focus:ring focus:ring-gray-200">
-          Back to Task List
-        </a>
-      </div>
+    <div class="mt-8">
+      <a href="{{ route('tasks.index') }}"
+        class="bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600 focus:outline-none focus:border-violet-700 focus:ring focus:ring-gray-200">
+        Back to Task List
+      </a>
     </div>
   </div>
 @endsection

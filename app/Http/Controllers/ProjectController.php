@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -12,7 +13,12 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::select('projects.*')
+        ->selectRaw('(SELECT SUM(durationHours * priceHour) FROM tasks WHERE projects.idP = tasks.idP) as totalCost')
+        ->get();
+
+
+
         return view('project.index', compact('projects'));
     }
 
@@ -118,25 +124,32 @@ class ProjectController extends Controller
     }
 
     public function details (Project $project) {
-        return view('project.details', ['project' => $project]);
+    
+        $projectId = $project->idP;
+        $projectDetails = Project::with(['tasks.developer'])->where('idP', $projectId)->get();
+        return view('project.details', compact('projectDetails'));
     }
 
 
-    public function search(Request $request)
+    public function searchTasks(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'search' => 'required|string',
+        $validatedData = Validator::make($request->all(), [
+            'searchTasks' => 'required|string',
         ],[
-            'search.required' => 'Please enter a project name'
+            'searchTasks.required' => 'Choose a project'
         ]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+        if ($validatedData->fails()) {
+            return back()->withErrors($validatedData)->withInput();
         }
 
-        $name = $request->input('search');
-        $searchResults = Project::where('name', 'like', '%' . $name . '%')->get();
+        $projectId = $request->input('searchTasks');
+        $project = Project::find($projectId);
 
-        return view('project.search', compact('searchResults'));
+        $searchResults = $project->tasks;
+        
+
+        return view('project.search', compact('searchResults', 'project'));
+        
     }
 }

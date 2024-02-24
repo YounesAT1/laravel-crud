@@ -5,32 +5,45 @@
 @section('content')
   <div class="container mx-auto p-4 flex flex-col">
     <div class="bg-white rounded-lg overflow-hidden border border-gray-300 p-6 mb-6">
-      <h2 class="text-3xl font-bold text-indigo-700 mb-4 text-center">Search Results</h2>
+      <h2 class="text-3xl font-bold text-indigo-700 mb-4 text-center">Tasks related to {{ $project->name }}</h2>
 
       @if ($searchResults->count() > 0)
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          @foreach ($searchResults as $project)
-            <div class="bg-gray-100 p-4 rounded-md">
-              <img src="/{{ $project->picture }}" alt="{{ $project->name }}"
-                class="w-full h-32 object-cover mb-4 rounded-md">
-              <p class="text-lg font-semibold text-black mb-2"><span class="text-indigo-500">ID:</span> {{ $project->idP }}
-              </p>
-              <p class="text-lg font-semibold text-black mb-2"><span class="text-indigo-500">Name:</span>
-                {{ $project->name }}</p>
-              <p class="text-lg font-semibold text-black mb-2"><span class="text-indigo-500">Description:</span>
-                {{ $project->description }}</p>
-              <p class="text-lg font-semibold text-black mb-2"><span class="text-indigo-500">Craetion date :</span>
-                {{ $project->created_at->format('Y-m-d H:i:s') }}</p>
-              <p class="text-lg font-semibold text-black mb-2"><span class="text-indigo-500">Date of last update :</span>
-                {{ $project->updated_at->format('Y-m-d H:i:s') }}</p>
-            </div>
-          @endforeach
-        </div>
+        <table class="w-full border-collapse border border-gray-300 mb-4">
+          <thead>
+            <tr>
+              <th class="p-3 border border-gray-300 text-left">ID</th>
+              <th class="p-3 border border-gray-300 text-left">Duration</th>
+              <th class="p-3 border border-gray-300 text-left">Price per Hour</th>
+              <th class="p-3 border border-gray-300 text-left">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($searchResults as $task)
+              <tr>
+                <td class="p-3 border border-gray-300">{{ $task->idT }} </td>
+                <td class="p-3 border border-gray-300">{{ $task->durationHours }} hours</td>
+                <td class="p-3 border border-gray-300">{{ $task->priceHour }} $</td>
+                <td class="p-3 border border-gray-300">
+                  <span
+                    class="px-4 py-2 rounded-md text-white
+                        @if ($task->state == 'Done') bg-green-500 
+                        @elseif($task->state == 'Not_started') bg-red-500 
+                        @elseif($task->state == 'Ongoing') bg-yellow-500 
+                        @else bg-white @endif;">
+                    {{ $task->state }}
+                  </span>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
       @else
-        <p class="text-lg text-gray-500">No projects found.</p>
+        <p class="text-lg text-gray-500">No tasks found.</p>
       @endif
+      <a class="text-white bg-indigo-500 px-4 py-2 rounded-md mt-auto " href="{{ route('projects.index') }}">Back
+        to
+        projects list</a>
     </div>
-    <a class="text-white bg-indigo-500 px-4 py-2 rounded-md mt-auto self-end" href="{{ route('projects.index') }}">Back
-      to projects list</a>
+
   </div>
 @endsection

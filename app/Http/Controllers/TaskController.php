@@ -14,9 +14,11 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::with(['project', 'developer'])->get();
+        $projects = Project::all(); 
 
-        return view('task.index', compact('tasks'));
+        return view('task.index', compact('tasks', 'projects'));
     }
+
 
     public function create()
     {
@@ -88,21 +90,5 @@ class TaskController extends Controller
         return view('task.details', compact('task'));
     }
 
-    public function search(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'search' => 'required|string',
-        ],[
-            'search.required' => 'Please enter of the developer doing the task'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-
-        $firstName = $request->input('search');
-        $searchResults = Developer::where('firstName', 'like', '%' . $firstName . '%')->get();
-
-        return view('task.search', compact('searchResults'));
-    }
-
+    
 }

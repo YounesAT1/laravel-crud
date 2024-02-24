@@ -25,22 +25,47 @@
     <a href="{{ route('developers.create') }}" class="text-white bg-black py-3 px-5 font-semibold rounded-lg"> Add </a>
   </div>
 
-  <form action="{{ route('developers.search') }}" method="GET" autocomplete="off" class="mb-2">
-    <select name="search" class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none">
-      <option value="" disabled selected>Select a developer</option>
-      @foreach ($developers as $developer)
-        <option value="{{ $developer->firstName }}" class="bg-gray-50 text-black font-semibold">
-          {{ $developer->firstName }} {{ $developer->lastName }}</option>
-      @endforeach
-    </select>
-    <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-md">Search</button>
-  </form>
+  <div class="flex items-center justify-around">
+    {{-- FORM FOR TASK LIST --}}
+    <div>
+      <form action="{{ route('developers.searchTasks') }}" method="GET" autocomplete="off" class="mb-2">
+        <select name="searchTasks" class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none">
+          <option value="" disabled selected>Select a developer</option>
+          @foreach ($developers as $developer)
+            <option value="{{ $developer->firstName }}" class="bg-gray-50 text-black font-semibold">
+              {{ $developer->firstName }} {{ $developer->lastName }}</option>
+          @endforeach
+        </select>
+        <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-md">Show Tasks</button>
+      </form>
+      @error('searchTasks')
+        <p class="text-red-500">{{ $message }}</p>
+      @enderror
+    </div>
+
+    {{-- FORM FOR PROJECT LIST --}}
+    <div>
+      <form action="{{ route('developers.searchProjects') }}" method="GET" autocomplete="off" class="mb-2">
+        <select name="searchProjects" class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none">
+          <option value="" disabled selected>Select a developer</option>
+          @foreach ($developers as $developer)
+            <option value="{{ $developer->firstName }}" class="bg-gray-50 text-black font-semibold">
+              {{ $developer->firstName }} {{ $developer->lastName }}
+            </option>
+          @endforeach
+        </select>
+        <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-md">Show Projects</button>
+      </form>
+      @error('searchProjects')
+        <p class="text-red-500">{{ $message }}</p>
+      @enderror
+    </div>
+
+  </div>
 
 
 
-  @error('search')
-    <p class="text-red-500">{{ $message }}</p>
-  @enderror
+
   <table class="min-w-full bg-white border border-gray-300 text-left">
     <thead>
       <tr class="border-b">
