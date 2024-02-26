@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\DB;
 class DeveloperController extends Controller
 {
     public function index() {
-        $developers = Developer::all();
+        // $developers = Developer::all();
+        $developers = Developer::select('developers.*')
+                    ->selectRaw('(SELECT SUM(durationHours * priceHour) FROM tasks WHERE developers.idD = tasks.idD ) AS totalRevenue ')
+                    ->get();
         return view('developer.index', compact('developers'));
     }
 

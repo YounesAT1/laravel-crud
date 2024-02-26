@@ -46,6 +46,7 @@
           <th class="py-2 px-4 ">Name</th>
           <th class="py-2 px-4 ">Description</th>
           <th class="py-2 px-4 ">Total Cost</th>
+          <th class="py-2 px-4 ">Average Cost</th>
           <th class="py-2 px-4 ">Picture</th>
           <th class="py-2 px-4  text-center">Actions</th>
         </tr>
@@ -61,7 +62,14 @@
                 @if ($project->totalCost === 0 || $project->totalCost === null)
                   No tasks
                 @else
-                  {{ $project->totalCost }} $
+                  {{ number_format($project->totalCost, 2) }} $
+                @endif
+              </td>
+              <td class="py-2 px-4 border-b font-semibold text-slate-700">
+                @if ($project->averageCost === 0 || $project->averageCost === null)
+                  No tasks
+                @else
+                  {{ number_format($project->averageCost, 2) }} $
                 @endif
               </td>
               <td class="py-2 px-4 border-b">

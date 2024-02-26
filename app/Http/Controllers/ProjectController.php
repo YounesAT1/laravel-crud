@@ -12,15 +12,18 @@ use Illuminate\Support\Facades\Validator;
 class ProjectController extends Controller
 {
     public function index()
-    {
-        $projects = Project::select('projects.*')
-        ->selectRaw('(SELECT SUM(durationHours * priceHour) FROM tasks WHERE projects.idP = tasks.idP) as totalCost')
+{
+    $projects = Project::select('projects.*')
+        ->selectRaw(
+            '(SELECT SUM(durationHours * priceHour) FROM tasks WHERE projects.idP = tasks.idP) as totalCost,
+            (SELECT AVG(durationHours * priceHour) FROM tasks WHERE projects.idP = tasks.idP) as averageCost'
+        )
         ->get();
 
+    return view('project.index', compact('projects'));
+}
 
 
-        return view('project.index', compact('projects'));
-    }
 
     public function create()
     {
@@ -127,7 +130,15 @@ class ProjectController extends Controller
     
         $projectId = $project->idP;
         $projectDetails = Project::with(['tasks.developer'])->where('idP', $projectId)->get();
-        return view('project.details', compact('projectDetails', 'project'));
+        $tasksThatAreDone = DB::select("
+            SELECT tasks.*
+            FROM tasks
+            WHERE tasks.idP = :projectId
+            AND tasks.state = 'Done'
+            ", ['projectId' => $projectId]);
+
+        $tasksThatAreDoneCollection = collect($tasksThatAreDone);
+        return view('project.details', compact('projectDetails', 'project', 'tasksThatAreDone'));
     }
 
 

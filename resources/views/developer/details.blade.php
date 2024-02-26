@@ -49,6 +49,7 @@
                 <th class="p-3 border border-gray-300 text-left">Duration</th>
                 <th class="p-3 border border-gray-300 text-left">Price</th>
                 <th class="p-3 border border-gray-300 text-left">Status</th>
+
               </tr>
               @if ($dev->tasks->count() > 0)
                 @foreach ($dev->tasks as $task)
@@ -66,6 +67,7 @@
                         {{ $task->state }}
                       </span>
                     </td>
+
                   </tr>
                 @endforeach
               @else

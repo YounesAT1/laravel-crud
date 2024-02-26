@@ -61,9 +61,9 @@
           <select id="state" name="state"
             class="mt-1 p-2 w-full border rounded-md bg-gray-100 @error('state') border-red-500 @enderror">
             <option value="" disabled>Choose a state</option>
-            <option value="ongoing" {{ $task->state == 'ongoing' ? 'selected' : '' }}>Ongoing</option>
-            <option value="done" {{ $task->state == 'done' ? 'selected' : '' }}>Done</option>
-            <option value="not_started" {{ $task->state == 'not_started' ? 'selected' : '' }}>Not Started Yet</option>
+            <option value="Ongoing" {{ $task->state == 'ongoing' ? 'selected' : '' }}>Ongoing</option>
+            <option value="Done" {{ $task->state == 'done' ? 'selected' : '' }}>Done</option>
+            <option value="Not_started" {{ $task->state == 'not_started' ? 'selected' : '' }}>Not Started Yet</option>
           </select>
           @error('state')
             <p class="text-red-500">{{ $message }}</p>

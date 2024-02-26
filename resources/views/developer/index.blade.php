@@ -74,6 +74,7 @@
         <th class="py-2 px-4 ">Last Name</th>
         <th class="py-2 px-4 ">Picture</th>
         <th class="py-2 px-4 ">Resume</th>
+        <th class="py-2 px-4 ">Total Revenue</th>
         <th class="py-2 px-4  text-center">Actions</th>
       </tr>
     </thead>
@@ -92,6 +93,9 @@
                 Show Resume
               </a>
             </td>
+            <td class="py-2 px-4 border-b font-semibold text-slate-700">{{ number_format($developer->totalRevenue, 2) }}
+              $</td>
+
 
             <td class="py-2 px-2  flex items-center justify-center gap-x-1">
               <a href="{{ route('developers.edit', $developer) }}"
