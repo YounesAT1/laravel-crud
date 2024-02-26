@@ -57,7 +57,13 @@
               <td class="py-2 px-4 border-b">{{ $project->idP }}</td>
               <td class="py-2 px-4 border-b">{{ $project->name }}</td>
               <td class="py-2 px-4 border-b">{{ $project->description }}</td>
-              <td class="py-2 px-4 border-b">{{ $project->totalCost }}</td>
+              <td class="py-2 px-4 border-b font-semibold text-slate-700">
+                @if ($project->totalCost === 0 || $project->totalCost === null)
+                  No tasks
+                @else
+                  {{ $project->totalCost }} $
+                @endif
+              </td>
               <td class="py-2 px-4 border-b">
                 <img src="/{{ $project->picture }}" alt="Project Picture" class="h-10 w-10 object-cover rounded-full">
               </td>

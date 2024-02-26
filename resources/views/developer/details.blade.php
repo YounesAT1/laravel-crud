@@ -7,7 +7,7 @@
     <div class="bg-white rounded-lg overflow-hidden border border-gray-200 p-6 mb-6">
 
       <div class="flex items-center justify-between mb-3">
-        <h2 class="text-3xl font-bold text-indigo-700 mb-4">{{ $dev->firstName }} Information</h2>
+        <h2 class="text-3xl font-bold text-indigo-700 mb-4">{{ $dev->firstName }}'s Information</h2>
         <img src="/{{ $dev->picture }}" alt="Developer Picture" class="h-10 w-10 object-cover rounded-full">
       </div>
 

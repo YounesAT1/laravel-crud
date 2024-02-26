@@ -127,7 +127,7 @@ class ProjectController extends Controller
     
         $projectId = $project->idP;
         $projectDetails = Project::with(['tasks.developer'])->where('idP', $projectId)->get();
-        return view('project.details', compact('projectDetails'));
+        return view('project.details', compact('projectDetails', 'project'));
     }
 
 

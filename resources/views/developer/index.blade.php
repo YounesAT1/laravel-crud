@@ -25,7 +25,7 @@
     <a href="{{ route('developers.create') }}" class="text-white bg-black py-3 px-5 font-semibold rounded-lg"> Add </a>
   </div>
 
-  <div class="flex items-center justify-around">
+  <div class="flex items-center justify-between mb-3">
     {{-- FORM FOR TASK LIST --}}
     <div>
       <form action="{{ route('developers.searchTasks') }}" method="GET" autocomplete="off" class="mb-2">

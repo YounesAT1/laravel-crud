@@ -3,10 +3,9 @@
 @section('title', 'Task Details')
 
 @section('content')
-  <div class="max-w-3xl mx-auto mt-8 bg-white rounded-md shadow-md p-6">
+  <div class="max-w-3xl mx-auto mt-8 bg-white rounded-md border border-gray-300 p-6">
     <h1 class="text-3xl font-semibold text-violet-600 mb-4">Task Details - ID {{ $task->idT }}</h1>
 
-    <!-- Task Details Table -->
     <div class="mb-8">
       <h2 class="text-xl font-semibold mb-4">Task :</h2>
       <table class="w-full border-collapse border border-gray-300 mb-4">

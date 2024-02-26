@@ -40,10 +40,10 @@
       @else
         <p class="text-lg text-gray-500">No tasks found.</p>
       @endif
-      <a class="text-white bg-indigo-500 px-4 py-2 rounded-md mt-auto " href="{{ route('projects.index') }}">Back
-        to
-        projects list</a>
     </div>
+    <a class="text-white bg-indigo-500 px-4 py-2 rounded-md mt-auto w-[11rem]" href="{{ route('projects.index') }}">Back
+      to
+      projects list</a>
 
   </div>
 @endsection

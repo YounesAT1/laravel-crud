@@ -5,20 +5,23 @@
 @section('content')
   <div class="container mx-auto p-4">
     <div class="bg-white rounded-lg overflow-hidden border border-gray-200 p-6 mb-6">
-      <h2 class="text-3xl font-bold text-indigo-700 mb-4">Project Information</h2>
+      <div class="flex items-center justify-between mx-auto mb-3">
+        <h2 class="text-3xl font-bold text-indigo-700 mb-4">{{ $project->name }}'s information</h2>
+        <img src="/{{ $project->picture }}" alt="Project Picture" class="h-12 w-12 object-cover rounded-full">
+      </div>
 
       <table class="w-full border-collapse border border-gray-300 mb-4">
         @foreach ($projectDetails as $detail)
           <tr>
-            <th class="p-3 border border-gray-300 text-left">Project ID</th>
+            <th class="p-3 border border-gray-300 text-left">ID</th>
             <td class="p-3 border border-gray-300">{{ $detail->idP }}</td>
           </tr>
           <tr>
-            <th class="p-3 border border-gray-300 text-left">Project Name</th>
+            <th class="p-3 border border-gray-300 text-left">Name</th>
             <td class="p-3 border border-gray-300">{{ $detail->name }}</td>
           </tr>
           <tr>
-            <th class="p-3 border border-gray-300 text-left">Project Description</th>
+            <th class="p-3 border border-gray-300 text-left">Description</th>
             <td class="p-3 border border-gray-300">{{ $detail->description }}</td>
           </tr>
           <tr>
