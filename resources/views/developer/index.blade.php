@@ -29,7 +29,8 @@
     {{-- FORM FOR TASK LIST --}}
     <div>
       <form action="{{ route('developers.searchTasks') }}" method="GET" autocomplete="off" class="mb-2">
-        <select name="searchTasks" class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none">
+        <select name="searchTasks"
+          class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none  @error('searchTasks') bg-red-500 text-white border-red-500" @enderror">
           <option value="" disabled selected>Select a developer</option>
           @foreach ($developers as $developer)
             <option value="{{ $developer->firstName }}" class="bg-gray-50 text-black font-semibold">
@@ -46,7 +47,8 @@
     {{-- FORM FOR PROJECT LIST --}}
     <div>
       <form action="{{ route('developers.searchProjects') }}" method="GET" autocomplete="off" class="mb-2">
-        <select name="searchProjects" class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none">
+        <select name="searchProjects"
+          class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none  @error('searchProjects') bg-red-500 text-white border-red-500" @enderror">
           <option value="" disabled selected>Select a developer</option>
           @foreach ($developers as $developer)
             <option value="{{ $developer->firstName }}" class="bg-gray-50 text-black font-semibold">

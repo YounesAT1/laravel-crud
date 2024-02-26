@@ -12,25 +12,23 @@ use Illuminate\Support\Facades\Validator;
 class ProjectController extends Controller
 {
     public function index()
-{
-    $projects = Project::select('projects.*')
-        ->selectRaw(
-            '(SELECT SUM(durationHours * priceHour) FROM tasks WHERE projects.idP = tasks.idP) as totalCost,
-            (SELECT AVG(durationHours * priceHour) FROM tasks WHERE projects.idP = tasks.idP) as averageCost'
-        )
-        ->get();
+    {
+        $projects = Project::select('projects.*')
+            ->selectRaw(
+                '(SELECT SUM(durationHours * priceHour) FROM tasks WHERE projects.idP = tasks.idP) as totalCost,
+                (SELECT AVG(durationHours * priceHour) FROM tasks WHERE projects.idP = tasks.idP) as averageCost'
+            )
+            ->get();
 
-    return view('project.index', compact('projects'));
-}
-
-
+        return view('project.index', compact('projects'));
+    }
 
     public function create()
     {
         return view('project.create');
     }
 
-    protected function validateAddProject(Request $request)
+    public function validateAddProject(Request $request)
     {
         return $request->validate([
             'name' => 'required|max:255|string',
@@ -45,7 +43,7 @@ class ProjectController extends Controller
         ]);
     }
 
-    protected function validateUpdateProject(Request $request)
+    public function validateUpdateProject(Request $request)
     {
         return $request->validate([
             'name' => 'required|max:255|string',
@@ -59,7 +57,7 @@ class ProjectController extends Controller
         ]);
     }
 
-    protected function handlePictureLogic(Request $request)
+    public function handlePictureLogic(Request $request)
     {
         $file = $request->file('picture');
         $fileExtension = $file->getClientOriginalExtension();

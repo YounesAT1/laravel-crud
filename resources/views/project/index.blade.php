@@ -25,8 +25,10 @@
       <a href="{{ route('projects.create') }}" class="text-white bg-black py-3 px-5 font-semibold rounded-lg"> Add </a>
     </div>
     <form action="{{ route('projects.searchTasks') }}" method="GET" autocomplete="off" class="mb-2">
-      <select name="searchTasks" class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none">
-        <option value="" disabled selected>Select a project</option>
+      <select name="searchTasks"
+        class="border p-2 px-3 rounded-md w-[15rem] bg-gray-200 focus:outline-none @error('searchTasks') bg-red-500 text-white border-red-500" @enderror>
+        <option value=""
+        disabled selected>Select a project</option>
         @foreach ($projects as $project)
           <option value="{{ $project->idP }}" class="bg-gray-50 text-black font-semibold">
             {{ $project->name }}
