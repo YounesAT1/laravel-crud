@@ -10,10 +10,11 @@
       <h2 class="text-xl font-semibold mb-4">Task :</h2>
       <table class="w-full border-collapse border border-gray-300 mb-4">
         <tr>
-          <th class="p-3 border border-gray-300 text-left">Duration</th>
-          <td class="p-3 border border-gray-300">{{ $task->durationHours }} hours</td>
-          <th class="p-3 border border-gray-300 text-left">Price per Hour</th>
-          <td class="p-3 border border-gray-300">{{ $task->priceHour }} $</td>
+          <th class="p-3 border border-gray-300 text-left">Duration (H)</th>
+          <td class="p-3 border border-gray-300">{{ $task->durationHours }}</td>
+          <th class="p-3 border border-gray-300 text-left">Price</th>
+          <td class="p-3 border border-gray-300 font-semibold text-slate-700">{{ number_format($task->priceHour, 2) }} $
+          </td>
           <th class="p-3 border border-gray-300 text-left">Status</th>
           <td class="p-3 border border-gray-300">
             <span

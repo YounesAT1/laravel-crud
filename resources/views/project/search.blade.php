@@ -12,8 +12,8 @@
           <thead>
             <tr>
               <th class="p-3 border border-gray-300 text-left">ID</th>
-              <th class="p-3 border border-gray-300 text-left">Duration</th>
-              <th class="p-3 border border-gray-300 text-left">Price per Hour</th>
+              <th class="p-3 border border-gray-300 text-left">Duration (H)</th>
+              <th class="p-3 border border-gray-300 text-left">Price (H)</th>
               <th class="p-3 border border-gray-300 text-left">Status</th>
             </tr>
           </thead>
@@ -21,8 +21,9 @@
             @foreach ($searchResults as $task)
               <tr>
                 <td class="p-3 border border-gray-300">{{ $task->idT }} </td>
-                <td class="p-3 border border-gray-300">{{ $task->durationHours }} hours</td>
-                <td class="p-3 border border-gray-300">{{ $task->priceHour }} $</td>
+                <td class="p-3 border border-gray-300">{{ $task->durationHours }}</td>
+                <td class="p-3 border border-gray-300 font-semibold text-slate-700">
+                  {{ number_format($task->priceHour, 2) }} $</td>
                 <td class="p-3 border border-gray-300">
                   <span
                     class="px-4 py-2 rounded-md text-white
