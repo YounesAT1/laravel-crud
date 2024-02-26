@@ -4,7 +4,7 @@
 
 @section('content')
   <div class="flex items-center justify-between mb-3">
-    <h2 class="text-3xl font-bold mb-4 underline">Tasks : {{ count($tasks) }}</h2>
+    <h2 class="text-3xl font-bold mb-4 text-violet-500">Tasks : {{ count($tasks) }}</h2>
     @if (session('status'))
       <div id="alert" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-[450px]"
         role="alert">

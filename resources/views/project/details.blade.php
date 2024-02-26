@@ -6,7 +6,7 @@
   <div class="container mx-auto p-4">
     <div class="bg-white rounded-lg overflow-hidden border border-gray-200 p-6 mb-6">
       <div class="flex items-center justify-between mx-auto mb-3">
-        <h2 class="text-3xl font-bold text-indigo-700 mb-4">{{ $project->name }}'s information</h2>
+        <h2 class="text-3xl font-semibold text-indigo-600 mb-4">{{ $project->name }}'s information</h2>
         <img src="/{{ $project->picture }}" alt="Project Picture" class="h-12 w-12 object-cover rounded-full">
       </div>
 
@@ -84,7 +84,8 @@
                 <tr>
                   <td class="p-3 border border-gray-300">{{ $task->idT }}</td>
                   <td class="p-3 border border-gray-300">{{ $task->durationHours }}</td>
-                  <td class="p-3 border border-gray-300">{{ $task->priceHour }}</td>
+                  <td class="p-3 border border-gray-300 font-semibold text-slate-700">
+                    {{ number_format($task->priceHour, 2) }} $</td>
                   <td class="p-3 border border-gray-300">
                     <a class="text-white bg-green-500 px-4 py-2 rounded-md self-end mt-10"
                       href="{{ route('tasks.details', ['task' => $task->idT]) }}">Show Details</a>
