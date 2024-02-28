@@ -78,12 +78,15 @@
                 <img src="/{{ $project->picture }}" alt="Project Picture" class="h-10 w-10 object-cover rounded-full">
               </td>
               <td class="py-2 px-2  flex items-center justify-center gap-x-1">
-                <a href="{{ route('projects.edit', $project) }}"
-                  class="text-white  bg-blue-500 p-2 rounded-lg">Update</a>
+                <a href="{{ route('projects.edit', $project) }}" class="text-white  bg-blue-500 p-2 rounded-lg">
+                  Update
+                </a>
                 <form action="{{ route('projects.destroy', $project) }}" method="Post" class="inline">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="text-white bg-red-500 p-2 rounded-lg">Delete</button>
+                  <button type="submit" class="text-white bg-red-500 p-2 rounded-lg">
+                    Delete
+                  </button>
                 </form>
                 <a href="{{ route('projects.details', $project) }}"
                   class="text-white  bg-green-500 p-2 rounded-lg">Details</a>

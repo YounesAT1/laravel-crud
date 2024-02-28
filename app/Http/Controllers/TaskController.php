@@ -7,7 +7,6 @@ use App\Models\Project;
 use App\Models\Developer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {

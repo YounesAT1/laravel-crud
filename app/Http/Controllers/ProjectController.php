@@ -134,7 +134,7 @@ class ProjectController extends Controller
             WHERE tasks.idP = :projectId
             AND tasks.state = 'Done'
             ", ['projectId' => $projectId]);
-
+    
         $tasksThatAreDoneCollection = collect($tasksThatAreDone);
         return view('project.details', compact('projectDetails', 'project', 'tasksThatAreDone'));
     }
