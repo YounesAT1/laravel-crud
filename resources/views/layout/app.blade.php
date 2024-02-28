@@ -14,7 +14,8 @@
     <div class="container mx-auto">
       <nav class="bg-gray-100 p-4 mb-6 rounded-b-md">
         <div class="flex justify-between items-center">
-          <a href="/" class="text-slate-900 text-xl font-bold">Chi logo</a>
+          <a href="/" class="text-slate-900 text-xl font-bold">
+            <img src="/Logo.png" alt="Logo" class="w-auto h-[50px]"></a>
           <div class="flex space-x-4">
             <a href="{{ route('projects.index') }}"
               class="text-slate-700 font-semibold {{ request()->is('projects*') ? 'text-violet-700  font-bold' : '' }}">Projects</a>
