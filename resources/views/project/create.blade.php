@@ -11,7 +11,7 @@
         @csrf
 
         <div class="mb-4">
-          <input type="text" id="name" name="name" placeholder="Project name" value=""
+          <input type="text" id="name" name="name" placeholder="Project name" value="{{ old('name') }}"
             class="mt-1 p-2 px-3 w-full border rounded-md bg-gray-100 placeholder:text-gray-400 placeholder:font-semibold focus:outline-none @error('name') border-red-500 @enderror">
           @error('name')
             <p class="text-red-500">{{ $message }}</p>
@@ -19,7 +19,8 @@
         </div>
 
         <div class="mb-4">
-          <textarea id="description" name="description" rows="4" value="" placeholder="Project description"
+          <textarea id="description" name="description" rows="4" value="{{ old('description') }}"
+            placeholder="Project description"
             class="mt-1 p-2 px-3 w-full border rounded-md bg-gray-100 placeholder:text-gray-400 placeholder:font-semibold focus:outline-none @error('description') border-red-500 @enderror"></textarea>
           @error('description')
             <p class="text-red-500">{{ $message }}</p>

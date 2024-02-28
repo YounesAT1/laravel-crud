@@ -38,6 +38,7 @@
 
         <div class="mb-4">
           <input type="text" id="duration_hours" name="durationHours" placeholder="Duration in Hours"
+            value="{{ old('durationHours') }}"
             class="mt-1 p-2 px-3 w-full border rounded-md bg-gray-100 placeholder:text-gray-400 placeholder:font-semibold focus:outline-none @error('durationHours') border-red-500 @enderror">
           @error('durationHours')
             <p class="text-red-500">{{ $message }}</p>
@@ -46,6 +47,7 @@
 
         <div class="mb-4">
           <input type="text" id="price_hour" name="priceHour" placeholder="Price per Hour"
+            value="{{ old('priceHour') }}"
             class="mt-1 p-2 px-3 w-full border rounded-md bg-gray-100 placeholder:text-gray-400 placeholder:font-semibold focus:outline-none @error('priceHour') border-red-500 @enderror">
           @error('priceHour')
             <p class="text-red-500">{{ $message }}</p>

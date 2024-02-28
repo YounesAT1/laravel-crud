@@ -11,7 +11,7 @@
         @csrf
 
         <div class="mb-4">
-          <input type="text" id="firstName" name="firstName" placeholder="First Name" value=""
+          <input type="text" id="firstName" name="firstName" placeholder="First Name" value="{{ old('firstName') }}"
             class="mt-1 p-2 px-3 w-full border rounded-md bg-gray-100 placeholder:text-gray-400 placeholder:font-semibold focus:outline-none @error('firstName') border-red-500 @enderror">
           @error('firstName')
             <p class="text-red-500">{{ $message }}</p>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="mb-4">
-          <input type="text" id="lastName" name="lastName" placeholder="Last Name" value=""
+          <input type="text" id="lastName" name="lastName" placeholder="Last Name" value="{{ old('lastName') }}"
             class="mt-1 p-2 px-3 w-full border rounded-md bg-gray-100 placeholder:text-gray-400 placeholder:font-semibold focus:outline-none @error('lastName') border-red-500 @enderror">
           @error('lastName')
             <p class="text-red-500">{{ $message }}</p>
